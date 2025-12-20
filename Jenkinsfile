@@ -46,8 +46,9 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
+                # Use the KUBECONFIG environment variable for kubectl
                 sed -i "s|IMAGE_TAG|$IMAGE_NAME|g" deployment.yaml
-                microk8s kubectl apply -f deployment.yaml
+                microk8s kubectl --kubeconfig=$KUBECONFIG apply -f deployment.yaml
                 '''
             }
         }
