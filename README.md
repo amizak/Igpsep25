@@ -140,6 +140,9 @@ git log --oneline
 git status
 ```
 
+
+---
+
 ###  Step 2: Push Code to GitHub (Remote Repository)
 
 Since Jenkins could be installed on a separate virtual machine, the source code must be stored in a remote repository.
@@ -189,3 +192,4 @@ In this phase, Jenkins is used to fetch the code from GitHub, build it, run test
 - **Operating System:** Ubuntu Linux
 
 **Installed Tools:** Jenkins, Maven, Git, Java (JDK)
+
