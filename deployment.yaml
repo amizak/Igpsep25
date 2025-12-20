@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: igp-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: igp-app
+  template:
+    metadata:
+      labels:
+        app: igp-app
+    spec:
+      containers:
+        - name: igp-container
+          image: localhost:32000/igp_2025:IMAGE_TAG
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
