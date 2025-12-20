@@ -121,20 +121,21 @@ git status
 ```
 
 #### Commit the Codebase
-
 To save the code into the local repository:
+
 ```bash
 git commit -m "Initial commit of codebase"
 ```
 #### Verify Commit
-
 To view commit ID, branch, and commit message:
+
 ```bash
 git log --oneline
 ```
 
 
 #### Confirm Clean Working Tree
+
 ```bash
 git status
 ```
@@ -143,11 +144,48 @@ git status
 
 Since Jenkins could be installed on a separate virtual machine, the source code must be stored in a remote repository.
 
-Tool Used: GitHub
+**Tool Used:** Github
 
 Logged in to GitHub account and created a new repository named:
 
 amizak_igp_2025
 
+#### Verify Git exist remotely
+Before adding a remote, check if any remote repository already exists:
+
+```bash
+git remote -v
+```
+
+#### Since no remote existed we  proceed to add one
+```bash
+git remote add origin "url"
+```
+
+#### Verify that the remote has been added successfully
+```bash
+git remote -v
+```
+#### Push codebase to github
+Upload the entire local codebase to Github repository
+
+```bash
+git push -u origin master
+```
+#### Then refresh your Github repository homepage, the complete source code should now be visible.
 
 
+### Step 3: Integration and Build(Continous integration)
+
+In this phase, Jenkins is used to fetch the code from GitHub, build it, run tests, and package the application.
+
+**Tool Used:** Jenkins and Maven
+
+### Build Part 1: Jenkins & Maven Setup (Prerequisites)
+#### Environment Setup
+
+- **Virtualization Tool:** VirtualBox
+
+- **Operating System:** Ubuntu Linux
+
+**Installed Tools:** Jenkins, Maven, Git, Java (JDK)
