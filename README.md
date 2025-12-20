@@ -237,11 +237,14 @@ mv -version
 ### Step 4: Continuous Integration Pipeline (Jenkins)
 #### Integration Objective
 Jenkins performs the following actions:
-*Pulls code from GitHub*
-*Compiles the application*
-*Runs unit tests*
-*Packages the application using Maven*
-*Archives build artifacts*
+*Pulls code from GitHub,*
+*Compiles the application,*
+*Runs unit tests,*
+*Packages the application using Maven,*
+*Archives build artifacts,*
+
+
+
 
 
 
