@@ -56,7 +56,7 @@ This pipeline improves development speed, reliability, and scalability.
 
 ---
 
-## Prerequisites
+## Pre-requisites
 
 - Java codebase downloaded from Edureka LMS (Project 1)
 - GitHub account
@@ -184,7 +184,7 @@ In this phase, Jenkins is used to fetch the code from GitHub, build it, run test
 
 **Tool Used:** Jenkins and Maven
 
-### Build Part 1: Jenkins & Maven Setup (Prerequisites)
+### Build Part 1: Jenkins & Maven Setup (Pre-requisites)
 #### Environment Setup
 
 - **Virtualization Tool:** VirtualBox
@@ -192,4 +192,57 @@ In this phase, Jenkins is used to fetch the code from GitHub, build it, run test
 - **Operating System:** Ubuntu Linux
 
 **Installed Tools:** Jenkins, Maven, Git, Java (JDK)
+
+#### Pre-requisite Checks
+### Verify Jenkins Installation
+Ensure Jenkins is installed and properly configured.
+
+### Verify Java Installation.
+Jenkins requires Java to run.
+
+```bash
+Java -version
+```
+
+### Restart and enable Jenkins
+
+```bash
+sudo systemctl restart Jenkins
+sudo systemctl enable Jenkins
+```
+### Access Jenkins browser
+Open a browser and navigate to:
+
+```bash
+http://(public_IP_VM):8080
+```
+> Ensure Port 8080 is allowed in firewall or security group
+
+### Build Part 2: Maven & Git Verification
+This stage ensures the Jenkins server can build and manage the codebase.
+
+#### Verify Maven Installation
+```bash
+mv -version
+```
+> Confirm Maven home directory exists (e.g., /opt/maven).
+
+### Verify Git Installation
+```bash
+mv -version
+```
+> Git is required so Jenkins can clone the GitHub repository during the pipeline execution.
+
+
+### Step 4: Continuous Integration Pipeline (Jenkins)
+#### Integration Objective
+Jenkins performs the following actions:
+*Pulls code from GitHub*
+*Compiles the application*
+*Runs unit tests*
+*Packages the application using Maven*
+*Archives build artifacts*
+
+
+
 
