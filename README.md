@@ -330,7 +330,98 @@ Installation User: root
 /var/lib/jenkins/workspace/ci-job
 
 
+#### Continuous Deployment (CD) Using Docker
+Overview
+This stage extends the Continuous Integration pipeline into a full CI/CD pipeline by adding deployment automation using Docker.
+The deployment is executed on the same virtual machine where Jenkins is installed.
 
+#### Tools & Technologies
+Jenkins
+Docker
+Git & GitHub
+Maven
+Apache Tomcat
+Docker Hub
+
+#### Environment Setup
+Install Docker
+Docker is installed on the same virtual machine where Jenkins is running to enable Docker-based deployment.
+Jenkins User Permissions
+Jenkins jobs are executed by the jenkins user.
+To allow Docker commands to run during pipeline execution, permissions are granted on the Docker socket:
+```bash
+sudo chown root:jenkins /var/run/docker.sock
+```
+#### Dockerfile Configuration
+The application is containerized using a Dockerfile.
+
+#### Artifact Type: WAR file
+Artifact Name: ABCtechnologies-1.0.war
+Packaging type is defined in pom.xml
+Apache Tomcat is used to run the application
+
+#### The WAR file is copied to the Tomcat deployment directory:
+```bash
+/usr/local/tomcat/webapps/
+```
+
+#### Tomcat is started using catalina.sh run, which automatically deploys the WAR file.
+Version Control for Dockerfile
+
+#### The Dockerfile is:
+Stored alongside the source code, Tracked using Git, Committed and pushed to GitHub.
+This allows Jenkins to retrieve the Dockerfile during the checkout stage and track configuration changes.
+
+CI/CD Pipeline Workflow (ci-cd-job)
+#### Stage 1: Checkout
+Jenkins clones the GitHub repository, including:
+1. Source code
+2. pom.xml
+3. Dockerfile
+
+#### Stage 2: Build and Test
+Maven is used to compile, test, and package the application:
+Artifact output location:
+/var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war
+
+#### Stage 3: Prepare Artifact for Docker Build
+For Docker image creation, the WAR file and Dockerfile must be in the same directory.
+
+The artifact is copied to:
+/var/lib/jenkins/workspace/$JOB_NAME/ABCtechnologies-1.0.war
+
+#### Stage 4: Docker Image Build
+The Docker image is built using:
+```bash
+docker build -t ABCtechnologies:$BUILD_NAME .
+```
+$BUILD_NAME is used for dynamic versioning
+Prevents hardcoding build numbers
+
+#### Stage 5: Docker Image Tagging
+The image is tagged before pushing to Docker Hub
+Docker Hub Authentication
+Docker Hub credentials are stored securely in Jenkins Global Credentials.
+Credential ID: mydockerhubcred
+Docker Pipeline plugin is installed on Jenkins
+Jenkins is restarted before pipeline execution
+> Note: Credentials are never stored in plain text
+
+#### Stage 6: Push Image to Docker Hub
+docker push amizak/ABCtechnologies:$BUILD_NUMBER
+
+#### Stage 7: Deploy Application Container
+The application is deployed as a Docker container:
+docker run -d -p <host_port>:8080 amizak/ABCtechnologies:$BUILD_NUMBER
+
+
+#### Check running containers:
+docker ps -a
+Application Access
+The deployed application can be accessed via a web browser:
+```bash
+http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
+```
 
 
 
