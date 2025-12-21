@@ -276,7 +276,7 @@ Jenkins performs the following actions:
 
 
 
-
+----
 ### Create Jenkins Continous Integration Pipeline Job
 
 1. Log in to Jenkins Dashboard
@@ -353,7 +353,49 @@ Installation User: root
 
 #### Job Workspace Location:
 /var/lib/jenkins/workspace/ci-job
+ci-job script
+pipeline
+```sh
+{
+    
+    agent any
+    stages
+    {
+    
+        stage('Checkout')
+        {
+            steps
+            { 
+                git 'https://github.com/amizak/Igpsep25.git'
+            }
+        }
+    
+        stage('Compile')
+        {
+            steps
+            {
+                sh 'mvn compile'
+            }
+        }
+    
+        stage('Test')
+        {
+            steps
+            {
+                sh 'mvn package'
+            }
+        }
 
+        stage('Build')
+        {
+            steps
+            {
+                sh'mvn package'
+            }
+        }
+    }
+}
+```
 
 ### Continuous Deployment (CD) Using Docker
 Overview
@@ -400,7 +442,12 @@ Version Control for Dockerfile
 #### The Dockerfile is:
 Stored alongside the source code, Tracked using Git, Committed and pushed to GitHub.
 This allows Jenkins to retrieve the Dockerfile during the checkout stage and track configuration changes.
-
+```txt
+FROM iamdevopstrainer/tomcat:base
+COPY ABCtechnologies-1.0.war /usr/local/tomcat/webapps/
+cmd ["catalina.sh", "run"]
+```
+-----
 CI/CD Pipeline Workflow (ci-cd-job)
 #### Stage 1: Checkout
 Jenkins clones the GitHub repository, including:
@@ -466,6 +513,82 @@ docker ps -a
 
 <img width="1215" height="676" alt="Image" src="https://github.com/user-attachments/assets/85368e52-abe0-4b85-9cd0-f88d1b546fa9" />
 
+CI-CD-JOB PIPELINE
+```sh
+
+pipeline
+{
+    
+    agent any
+    stages
+    {
+    
+        stage('Checkout')
+        {
+            steps
+            { 
+                git 'https://github.com/amizak/Igpsep25.git'
+            }
+        }
+    
+        stage('Compile')
+        {
+            steps
+            {
+                sh 'mvn compile'
+            }
+        }
+    
+        stage('Test')
+        {
+            steps
+            {
+                sh 'mvn package'
+            }
+        }
+
+        stage('Build')
+        {
+            steps
+            {
+                sh'mvn package'
+            }
+        }
+
+        stage('Build Docker Image')
+        {
+            steps
+            {
+                sh 'cp /var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war 			   /var/lib/jenkins/workspace/$JOB_NAME/'
+                sh "docker build -t amizak/addressbook:$BUILD_NUMBER ."
+                sh "docker tag amizak/addressbook:$BUILD_NUMBER amizak/addressbook:$BUILD_NUMBER"
+            }
+        }
+
+        stage ('Push Docker Image')
+        {
+            steps
+            {
+                withDockerRegistry([ credentialsId: 'dockercred', url: ""])
+                {
+                   sh 'docker push amizak/addressbook:$BUILD_NUMBER'
+                }
+            }
+        }
+
+        stage ('Deploy as container')
+        {
+            steps
+            {
+                sh 'docker run -itd -P amizak/addressbook:$BUILD_NUMBER'
+            }
+        }
+  
+    }
+}
+
+```
+----
 Application Access
 The deployed application can be accessed via a web browser:
 ```bash
@@ -493,16 +616,20 @@ microk8s is installed
 ```bash
 command -v microk8s
 ```
+<img width="1100" height="760" alt="Image" src="https://github.com/user-attachments/assets/31a129a3-426c-4739-b416-6210c279c984" />
 
 MicroK8s is running 
 ```bash
 microk8s status
 ```
+<img width="1429" height="872" alt="Image" src="https://github.com/user-attachments/assets/0ec7a566-c549-40b7-a78f-04d8e1749dae" />
 
 Kubernetes API is reachable
 ```bash
 microk8s kubectl get nodes
 ```
+<img width="1429" height="872" alt="Image" src="https://github.com/user-attachments/assets/fb14243e-3ab3-46d0-914b-245a1f9cefeb" />
+
 This checks:
 1. API server
 2. certificates
@@ -514,11 +641,13 @@ Jenkins user has access to kubectl
 ```bash
 ps aux | grep jenkins
 ```
+<img width="1429" height="721" alt="Image" src="https://github.com/user-attachments/assets/c3ee00f3-7907-47d3-926c-663695e60a64" />
 
 Verify group membership
 ```bash
 groups jenkins
 ```
+<img width="1229" height="271" alt="Image" src="https://github.com/user-attachments/assets/4cce4400-2db6-4673-b71b-47cb6e14b204" />
 
 Run as Jenkins User
 ```bash
@@ -529,6 +658,9 @@ and
 ```bash
 microk8s kubectl get pods -A
 ```
+
+<img width="1816" height="874" alt="Image" src="https://github.com/user-attachments/assets/acfde4f5-576b-479a-90af-ba1931591e8e" />
+
 
 #### Kubernetes Deployment Details
 1. Cluster Type: MicroK8s
@@ -581,15 +713,20 @@ Deploy the application to the Kubernetes cluster.
 microk8s kubectl apply -f deployment.yaml
 ```
 
+<img width="1229" height="241" alt="Image" src="https://github.com/user-attachments/assets/4df14c0f-9e7b-4bce-a31e-cd86d30f4fb3" />
+
 Check the deployment status:
 ```bash
 microk8s kubectl get deployments
 ```
 
+<img width="1713" height="460" alt="Image" src="https://github.com/user-attachments/assets/e6e717c8-4328-42c8-9525-8d7a93c55e61" />
+
 Check running pods:
 ```bash
 microk8s kubectl get pods
 ```
+<img width="1713" height="138" alt="Image" src="https://github.com/user-attachments/assets/cdb7c655-ba24-4cb2-b334-3dbcb9c02530" />
 
 Describe a pod for more details:
 ```bash
@@ -606,11 +743,13 @@ microk8s enable dashboard
 ```bash
 microk8s dashboard-proxy
 ```
+<img width="1424" height="418" alt="Image" src="https://github.com/user-attachments/assets/f726b1c0-68cb-44ec-b879-7fa29aa06869" />
 
 2. Access in a browser:
    ```cpp
    https://127.0.0.1:10443
    ```
+   
    
 #### Container Registry
 The deployment pulls images from the MicroK8s local container registry:
@@ -623,8 +762,15 @@ Ensure the registry is enabled:
 microk8s enable registry
 ```
 
+Outcome of deploying to kubernetes on jenkins
+
+<img width="1764" height="1215" alt="Image" src="https://github.com/user-attachments/assets/f3df747c-0c3d-46a0-b2dd-65922b806298" />
+
+
+
 ### Author
 #### Alek(YUSUF ALEAKHUE UMAR)
+
 
 
 
