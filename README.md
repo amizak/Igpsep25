@@ -103,6 +103,8 @@ To start tracking the project directory:
 git init
 ```
 
+<img width="1893" height="663" alt="Image" src="https://github.com/user-attachments/assets/c21bd76a-10c3-4ff1-b0df-8995e681d1ad" />
+
 
 #### Check Repository Status
 To view untracked files:
@@ -110,6 +112,8 @@ To view untracked files:
 ```bash
 git status
 ```
+
+<img width="1893" height="663" alt="Image" src="https://github.com/user-attachments/assets/3efb0484-bf32-4e2f-87b4-8469b5e3a7f0" />
 
 #### Add Files to Staging Area
 To move untracked files to staging:
@@ -122,26 +126,31 @@ git add .
 git status
 ```
 
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/63b31e9d-fdfb-4a3e-a7ae-3aee9840bb2c" />
+
 #### Commit the Codebase
 To save the code into the local repository:
 
 ```bash
 git commit -m "Initial commit of codebase"
 ```
+
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/f9add925-7891-4342-98e7-b174fddd9665" />
+
 #### Verify Commit
 To view commit ID, branch, and commit message:
 
 ```bash
 git log --oneline
 ```
-
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/63b4e6e6-5e4b-4b49-855a-0cc11a24d3f3" />
 
 #### Confirm Clean Working Tree
 
 ```bash
 git status
 ```
-
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/2f16bfbc-74ac-4df0-8710-0afcdadee6db" />
 
 ---
 
@@ -161,16 +170,20 @@ Before adding a remote, check if any remote repository already exists:
 ```bash
 git remote -v
 ```
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/27d09204-a100-4474-ad47-7cbee6c47cf2" />
 
 #### Since no remote existed we  proceed to add one
 ```bash
 git remote add origin "url"
 ```
-
 #### Verify that the remote has been added successfully
 ```bash
 git remote -v
 ```
+
+<img width="1893" height="1313" alt="Image" src="https://github.com/user-attachments/assets/9037242b-1ec1-44cf-a9c7-5d732e5ddb62" />
+
+
 #### Push codebase to github
 Upload the entire local codebase to Github repository
 
@@ -213,13 +226,20 @@ sudo systemctl restart Jenkins
 sudo systemctl enable Jenkins
 systemctl status Jenkins
 ```
+
+<img width="1905" height="1021" alt="Image" src="https://github.com/user-attachments/assets/7f74a12e-ded2-405d-85ba-27e5319d1d15" />
+
 #### 4. Access Jenkins browser
+> Ensure Port 8080 is allowed in firewall or security group
+
+<img width="1905" height="753" alt="Image" src="https://github.com/user-attachments/assets/cddabcf1-40b8-4e58-bb98-b3c71dcf7fee" />
+
 Open a browser and navigate to:
 
 ```bash
 http://(public_IP_VM):8080
 ```
-> Ensure Port 8080 is allowed in firewall or security group
+<img width="1781" height="1208" alt="Image" src="https://github.com/user-attachments/assets/aa6d2e88-0489-4158-8148-c93cfb0778b6" />
 
 ### Build Part 2: Maven & Git Verification
 This stage ensures the Jenkins server can build and manage the codebase. By running commands like mvn compile, mvn test and mvn package.
@@ -228,8 +248,12 @@ This stage ensures the Jenkins server can build and manage the codebase. By runn
 ```bash
 mvn -version
 ```
+
+<img width="1905" height="283" alt="Image" src="https://github.com/user-attachments/assets/4f7ec0be-c47f-44ec-8ae1-23598460cd32" />
+
 If not install Maven
 > Confirm Maven home directory exists (e.g., /opt/maven).
+
 
 #### 2. Verify Git Installation on the same VM/Server Jenkins is installed
 ```bash
@@ -263,6 +287,7 @@ Jenkins performs the following actions:
 6. Define pipeline stages in a Jenkinsfile
 7. The pipeline script handles checkout, build, test, and package stages, all executed automatically after running the script.
 
+<img width="1758" height="1175" alt="Image" src="https://github.com/user-attachments/assets/ce380198-4fab-4f27-8823-0aecda57bc61" />
 
 #### Pipeline Execution Environment
 The pipeline is configured to run on any available Jenkins node. This means it can execute on either Jenkins master, or any configured agent (slave) node.
@@ -352,6 +377,9 @@ To allow Docker commands to run during pipeline execution, permissions are grant
 ```bash
 sudo chown root:jenkins /var/run/docker.sock
 ```
+
+<img width="1574" height="203" alt="Image" src="https://github.com/user-attachments/assets/5f9a935d-8a81-4498-bcda-555c659f5d81" />
+
 #### Dockerfile Configuration
 The application is containerized using a Dockerfile.
 
@@ -364,6 +392,7 @@ Apache Tomcat is used to run the application
 ```bash
 /usr/local/tomcat/webapps/
 ```
+
 
 #### Tomcat is started using catalina.sh run, which automatically deploys the WAR file.
 Version Control for Dockerfile
@@ -378,11 +407,20 @@ Jenkins clones the GitHub repository, including:
 1. Source code
 2. pom.xml
 3. Dockerfile
+<img width="1804" height="159" alt="Image" src="https://github.com/user-attachments/assets/fb539dc6-b719-4e98-bc93-473606899938" />
+
+<img width="1804" height="753" alt="Image" src="https://github.com/user-attachments/assets/958d49f4-457c-4144-87be-36e1b7c4f6eb" />
+
+<img width="1804" height="616" alt="Image" src="https://github.com/user-attachments/assets/c6f96b36-26c5-4e35-acc7-2de0fc7aa380" />
+
+<img width="1760" height="1045" alt="Image" src="https://github.com/user-attachments/assets/dce79fb0-a6a5-4a09-8525-1ecff069b2a4" />
 
 #### Stage 2: Build and Test
 Maven is used to compile, test, and package the application:
 Artifact output location:
 /var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war
+
+<img width="1760" height="1312" alt="Image" src="https://github.com/user-attachments/assets/a7eb8aed-ed04-4c7b-909d-a690279fb9c9" />
 
 #### Stage 3: Prepare Artifact for Docker Build
 For Docker image creation, the WAR file and Dockerfile must be in the same directory.
@@ -403,12 +441,20 @@ The image is tagged before pushing to Docker Hub
 Docker Hub Authentication
 Docker Hub credentials are stored securely in Jenkins Global Credentials.
 Credential ID: mydockerhubcred
+
+<img width="1804" height="499" alt="Image" src="https://github.com/user-attachments/assets/638b3521-9712-4e5a-b096-2e5379c5cd13" />
+
 Docker Pipeline plugin is installed on Jenkins
+
+<img width="1804" height="669" alt="Image" src="https://github.com/user-attachments/assets/4184bbe0-170e-4636-b337-ea95b998ce7e" />
+
 Jenkins is restarted before pipeline execution
 > Note: Credentials are never stored in plain text
 
 #### Stage 6: Push Image to Docker Hub
 docker push amizak/ABCtechnologies:$BUILD_NUMBER
+
+<img width="1195" height="676" alt="Image" src="https://github.com/user-attachments/assets/7b518e1e-5803-4af0-b617-d2be4837a831" />
 
 #### Stage 7: Deploy Application Container
 The application is deployed as a Docker container:
@@ -417,19 +463,32 @@ docker run -d -p <host_port>:8080 amizak/ABCtechnologies:$BUILD_NUMBER
 
 #### Check running containers:
 docker ps -a
+
+<img width="1215" height="676" alt="Image" src="https://github.com/user-attachments/assets/85368e52-abe0-4b85-9cd0-f88d1b546fa9" />
+
 Application Access
 The deployed application can be accessed via a web browser:
 ```bash
 http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
 ```
+#### Outcome of running the ci-cd pipeline
 
+<img width="1175" height="660" alt="Image" src="https://github.com/user-attachments/assets/b359811a-16d7-4fba-93e8-adc7e6c0f15c" />
+
+<img width="1792" height="896" alt="Image" src="https://github.com/user-attachments/assets/c0aa963e-dc8e-47b5-ab79-3d04f24fa409" />
+
+<img width="1215" height="566" alt="Image" src="https://github.com/user-attachments/assets/55792341-27f2-416f-8a3c-99fe1ba8eeae" />
+
+<img width="1215" height="683" alt="Image" src="https://github.com/user-attachments/assets/176463bf-cde5-41c5-9432-e0c259b3dfa0" />
+
+<img width="1215" height="719" alt="Image" src="https://github.com/user-attachments/assets/489bf186-e6cb-4a54-9718-0d6935aaeb3b" />
 
 
 ### Kubernetes Deployment – ABCtechnologies-1.0.war Application
 #### Overview
 The application is deployed on a MicroK8s Kubernetes cluster using a locally hosted container registry. The deployment runs a containerized Java application ABCtechnogies.war and exposes it internally within the cluster.
 
-Before deploying, Jenkins should confirm: 
+Before deploying confirm: 
 microk8s is installed 
 ```bash
 command -v microk8s
@@ -529,10 +588,6 @@ microk8s kubectl get deployments
 
 Check running pods:
 ```bash
-microk8s kubectl get deployments
-```
-Check running pods:
-```bash
 microk8s kubectl get pods
 ```
 
@@ -570,6 +625,7 @@ microk8s enable registry
 
 ### Author
 #### Alek(YUSUF ALEAKHUE UMAR)
+
 
 
 
