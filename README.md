@@ -224,7 +224,7 @@ This stage ensures the Jenkins server can build and manage the codebase. By runn
 
 #### 1. Verify Maven Installation on the same VM/Server Jenkins is installed.
 ```bash
-mv -version
+mvn -version
 ```
 If not install Maven
 > Confirm Maven home directory exists (e.g., /opt/maven).
@@ -261,6 +261,36 @@ Jenkins performs the following actions:
 5. Write script  to perform the CI in the pipeline
 6. Define pipeline stages in a Jenkinsfile
 7. The pipeline script handles checkout, build, test, and package stages, all executed automatically after running the script.
+
+
+### Pipeline Execution Environment
+The pipeline is configured to run on any available Jenkins node. This means it can execute on either Jenkins master, or any configured agent (slave) node.
+
+### Stage 1: Checkout (Source Code Retrieval)
+In this stage, Jenkins downloads the complete source code from the GitHub repository.
+
+### Source Control Tool: Git
+Action Performed: Clone the entire codebase
+Repository URL: GitHub repository URL
+
+### Purpose:
+Ensures Jenkins always works with the latest version of the code.
+
+### Stage 2: Compile (Build Stage)
+Once the code is checked out, it must be compiled so the system can understand and execute it.
+
+Programming Language: Java (High-Level Language)
+Build Tool: Maven
+Command Used:
+```bash
+sh 'mvn compile'
+```
+Compilation converts high-level Java code into machine-readable bytecode. This stage verifies that the code has no syntax or compilation errors
+> The sh keyword in Jenkins is used to execute shell commands on the Jenkins server.
+
+
+
+
 
 
 
