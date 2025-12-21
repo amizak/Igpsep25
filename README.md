@@ -238,16 +238,15 @@ git -version
 
 
 ### Step 4: Continuous Integration Pipeline
-
 This Continuous Integration pipeline is implemented using Jenkins Pipeline and is responsible for fetching the source code using Git, compiling it, running unit tests, and generating the deployment artifact using maven. All these steps will be done or achieved on the integration tool (Jenkins).
 
 #### Integration Objective:
 Jenkins performs the following actions:
-*1. Checkout:*Pulls code from GitHub
-*2. Compiles the application,*
-*3. Test:* Runs unit tests,*
-*4. Packages the application using Maven*
-*5. Archives build artifacts.*
+1. *Checkout:*Pulls code from GitHub
+2. Compiles the application.
+3. *Test:* Runs unit tests
+4. Packages the application using Maven
+5. Archives build artifacts.
 
 
 
@@ -263,24 +262,24 @@ Jenkins performs the following actions:
 7. The pipeline script handles checkout, build, test, and package stages, all executed automatically after running the script.
 
 
-### Pipeline Execution Environment
+#### Pipeline Execution Environment
 The pipeline is configured to run on any available Jenkins node. This means it can execute on either Jenkins master, or any configured agent (slave) node.
 
 ### Stage 1: Checkout (Source Code Retrieval)
 In this stage, Jenkins downloads the complete source code from the GitHub repository.
 
-### Source Control Tool: Git
+#### Source Control Tool: Git
 Action Performed: Clone the entire codebase
 Repository URL: GitHub repository URL
 
-### Purpose:
+#### Purpose:
 Ensures Jenkins always works with the latest version of the code.
 
 ### Stage 2: Compile (Build Stage)
 Once the code is checked out, it must be compiled so the system can understand and execute it.
 
-Programming Language: Java (High-Level Language)
-Build Tool: Maven
+#### Programming Language: Java (High-Level Language)
+#### Build Tool: Maven
 Command Used:
 ```bash
 sh 'mvn compile'
@@ -288,8 +287,30 @@ sh 'mvn compile'
 Compilation converts high-level Java code into machine-readable bytecode. This stage verifies that the code has no syntax or compilation errors
 > The sh keyword in Jenkins is used to execute shell commands on the Jenkins server.
 
+### Stage 3: Test (Unit Testing)
+In this stage, unit test cases written by the development team are executed.
 
+#### Test Type: Unit Tests
+Tool Used: Maven
 
+#### Responsibility:
+1. Tests are written by developers
+2. Execution is handled by the DevOps CI pipeline
+
+#### Purpose:
+Ensures application stability
+Detects issues early before deployment
+
+### Stage 4: Package (Build Artifact Creation)
+After successful compilation and testing, the final deployment artifact is generated.
+#### Artifact Type: .war file (Web Archive)
+
+#### Final Output File:
+```bash
+abctechnologies.war
+```
+> The pom.xml file defines the packaging type as WAR
+> This WAR file is the final deployment artifact
 
 
 
