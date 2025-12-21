@@ -271,9 +271,7 @@ In this stage, Jenkins downloads the complete source code from the GitHub reposi
 #### Source Control Tool: Git
 Action Performed: Clone the entire codebase
 Repository URL: GitHub repository URL
-
-#### Purpose:
-Ensures Jenkins always works with the latest version of the code.
+This ensures Jenkins always works with the latest version of the code.
 
 ### Stage 2: Compile (Build Stage)
 Once the code is checked out, it must be compiled so the system can understand and execute it.
@@ -330,7 +328,7 @@ Installation User: root
 /var/lib/jenkins/workspace/ci-job
 
 
-#### Continuous Deployment (CD) Using Docker
+### Continuous Deployment (CD) Using Docker
 Overview
 This stage extends the Continuous Integration pipeline into a full CI/CD pipeline by adding deployment automation using Docker.
 The deployment is executed on the same virtual machine where Jenkins is installed.
@@ -422,6 +420,7 @@ The deployed application can be accessed via a web browser:
 ```bash
 http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
 ```
+
 
 
 
