@@ -193,24 +193,25 @@ In this phase, Jenkins is used to fetch the code from GitHub, build it, run test
 
 **Installed Tools:** Jenkins, Maven, Git, Java (JDK)
 
-#### Pre-requisite Checks
-### Verify Jenkins Installation
+### Pre-requisite Checks
+#### 1. Verify Jenkins Installation
 Ensure Jenkins is installed and properly configured.
 
-### Verify Java Installation.
+#### 2. Verify Java Installation.
 Jenkins requires Java to run.
 
 ```bash
 Java -version
 ```
 
-### Restart and enable Jenkins
+#### 3. Restart and enable Jenkins
 
 ```bash
 sudo systemctl restart Jenkins
 sudo systemctl enable Jenkins
+systemctl status Jenkins
 ```
-### Access Jenkins browser
+#### 4. Access Jenkins browser
 Open a browser and navigate to:
 
 ```bash
@@ -219,29 +220,50 @@ http://(public_IP_VM):8080
 > Ensure Port 8080 is allowed in firewall or security group
 
 ### Build Part 2: Maven & Git Verification
-This stage ensures the Jenkins server can build and manage the codebase.
+This stage ensures the Jenkins server can build and manage the codebase. By running commands like mvn compile, mvn test and mvn package.
 
-#### Verify Maven Installation
+#### 1. Verify Maven Installation on the same VM/Server Jenkins is installed.
 ```bash
 mv -version
 ```
+If not install Maven
 > Confirm Maven home directory exists (e.g., /opt/maven).
 
-### Verify Git Installation
+#### 2. Verify Git Installation on the same VM/Server Jenkins is installed
 ```bash
-mv -version
+git -version
 ```
 > Git is required so Jenkins can clone the GitHub repository during the pipeline execution.
+> Ensure Maven and Git are installed on the same Vm were Jenkins is installed.
 
 
-### Step 4: Continuous Integration Pipeline (Jenkins)
-#### Integration Objective
+### Step 4: Continuous Integration Pipeline
+
+This Continuous Integration pipeline is implemented using Jenkins Pipeline and is responsible for fetching the source code using Git, compiling it, running unit tests, and generating the deployment artifact using maven. All these steps will be done or achieved on the integration tool (Jenkins).
+
+#### Integration Objective:
 Jenkins performs the following actions:
-*Pulls code from GitHub,*
-*Compiles the application,*
-*Runs unit tests,*
-*Packages the application using Maven,*
-*Archives build artifacts,*
+*1. Checkout:*Pulls code from GitHub
+*2. Compiles the application,*
+*3. Test:* Runs unit tests,*
+*4. Packages the application using Maven*
+*5. Archives build artifacts.*
+
+
+
+
+### Create Jenkins Continous Integration Pipeline Job
+
+1. Log in to Jenkins Dashboard
+2. Click New Item
+3. Type of the Job, Select Pipeline
+4. Enter a job name (CI-Job)
+5. Write script  to perform the CI in the pipeline
+6. Define pipeline stages in a Jenkinsfile
+7. The pipeline script handles checkout, build, test, and package stages, all executed automatically after running the script.
+
+
+
 
 
 
