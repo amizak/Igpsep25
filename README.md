@@ -423,10 +423,110 @@ http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
 
 
 
+### Kubernetes Deployment – IGP Application
+#### Overview
+This repository contains the Kubernetes deployment configuration for the IGP project ABCtechnogies application.
+The application is deployed on a MicroK8s Kubernetes cluster using a locally hosted container registry. The deployment runs a containerized Java application ABCtechnogies.war and exposes it internally within the cluster.
 
+#### Kubernetes Deployment Details
+1. Cluster Type: MicroK8s
+2. Workload Type: Deployment
+3. Replicas: 1
+4. Container Runtime: Docker
+5. Image Registry: MicroK8s local registry (localhost:32000)
+6. Container Port: 8080
 
+#### Deployment manifest
+Create a deployment.yaml file and push it to github after tracking and committing it.
 
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: igp-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: igp-app
+  template:
+    metadata:
+      labels:
+        app: igp-app
+    spec:
+      containers:
+        - name: igp-container
+          image: localhost:32000/igp_2025:IMAGE_TAG
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
 
+```
+> IMAGE_TAG is dynamically replaced during deployment to reference the correct container image version.
+> imagePullPolicy is set to IfNotPresent to ensure the image is pulled from the local registry.
+> The container listens on port 8080.
+
+#### Deployment steps:
+1. Update Image Tag
+Replace the placeholder image tag with the actual image reference.
+```bash
+sed -i "s|IMAGE_TAG|localhost:32000/igp_2025:1|g" deployment.yaml
+```
+
+#### Apply the Deployment
+Deploy the application to the Kubernetes cluster.
+```bash
+microk8s kubectl apply -f deployment.yaml
+```
+
+Check the deployment status:
+```bash
+microk8s kubectl get deployments
+```
+
+Check running pods:
+```bash
+microk8s kubectl get deployments
+```
+Check running pods:
+```bash
+microk8s kubectl get pods
+```
+
+Describe a pod for more details:
+```bash
+microk8s kubectl describe pod <pod-name>
+```
+
+#### Kubernetes Dashboard
+The Kubernetes Dashboard can be used to visually confirm the deployment.
+1. Enable and access the dashboard:
+```bash
+microk8s enable dashboard
+```
+
+```bash
+microk8s dashboard-proxy
+```
+
+2. Access in a browser:
+   ```cpp
+   https://127.0.0.1:10443
+   ```
+   
+#### Container Registry
+The deployment pulls images from the MicroK8s local container registry:
+  ```txt 
+   localhost:32000/igp_2025:<tag>
+  ```
+
+Ensure the registry is enabled:
+```bash
+microk8s enable registry
+```
+
+### Author
+#### Alek(YUSUF ALEAKHUE UMAR)
 
 
 
