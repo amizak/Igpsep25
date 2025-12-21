@@ -92,6 +92,8 @@ This pipeline improves development speed, reliability, and scalability.
 
 The source code was initially downloaded from the LMS and stored on the local machine.
 
+<img width="1410" height="492" alt="Image" src="https://github.com/user-attachments/assets/ec18bfbb-f690-4e2d-951f-5e7907e5c9c0" />
+
 **Tool Used:** Git Bash
 
 #### Initialize Git Repository
@@ -568,6 +570,7 @@ microk8s enable registry
 
 ### Author
 #### Alek(YUSUF ALEAKHUE UMAR)
+
 
 
 
