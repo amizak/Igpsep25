@@ -312,6 +312,24 @@ abctechnologies.war
 > The pom.xml file defines the packaging type as WAR
 > This WAR file is the final deployment artifact
 
+#### Build Output Location
+After the pipeline execution, the artifact is stored on the Jenkins server at:
+```bash
+/var/lib/jenkins/workspace/ci-job/target/abctechnologies.war
+```
+> This artifact will be used in the deployment stage, where it is containerized using Docker.
+
+#### Jenkins Job Execution Details
+Installation User: root
+(All tools such as Jenkins, Maven, and Git were installed by the root user)
+
+#### Execution User: jenkins
+(All Jenkins jobs run under the jenkins user)
+
+#### Job Workspace Location:
+/var/lib/jenkins/workspace/ci-job
+
+
 
 
 
