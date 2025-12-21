@@ -425,8 +425,49 @@ http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
 
 ### Kubernetes Deployment – ABCtechnologies-1.0.war Application
 #### Overview
-This repository contains the Kubernetes deployment configuration for the IGP project ABCtechnogies application.
 The application is deployed on a MicroK8s Kubernetes cluster using a locally hosted container registry. The deployment runs a containerized Java application ABCtechnogies.war and exposes it internally within the cluster.
+
+Before deploying, Jenkins should confirm: 
+microk8s is installed 
+```bash
+command -v microk8s
+```
+
+MicroK8s is running 
+```bash
+microk8s status
+```
+
+Kubernetes API is reachable
+```bash
+microk8s kubectl get nodes
+```
+This checks:
+1. API server
+2. certificates
+3. networking
+4. permissions
+
+
+Jenkins user has access to kubectl
+```bash
+ps aux | grep jenkins
+```
+
+Verify group membership
+```bash
+groups jenkins
+```
+
+Run as Jenkins User
+```bash
+sudo -i -u jenkins
+```
+and
+
+```bash
+microk8s kubectl get pods -A
+```
 
 #### Kubernetes Deployment Details
 1. Cluster Type: MicroK8s
@@ -527,6 +568,7 @@ microk8s enable registry
 
 ### Author
 #### Alek(YUSUF ALEAKHUE UMAR)
+
 
 
 
