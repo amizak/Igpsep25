@@ -423,7 +423,7 @@ http://<Public_IP_VM>:<host_port>/ABCtechnologies-1.0
 
 
 
-### Kubernetes Deployment – IGP Application
+### Kubernetes Deployment – ABCtechnologies-1.0.war Application
 #### Overview
 This repository contains the Kubernetes deployment configuration for the IGP project ABCtechnogies application.
 The application is deployed on a MicroK8s Kubernetes cluster using a locally hosted container registry. The deployment runs a containerized Java application ABCtechnogies.war and exposes it internally within the cluster.
@@ -527,6 +527,7 @@ microk8s enable registry
 
 ### Author
 #### Alek(YUSUF ALEAKHUE UMAR)
+
 
 
 
